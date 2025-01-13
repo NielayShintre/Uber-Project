@@ -126,7 +126,20 @@ json
 
 **Code**: 200 OK
 
-{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg0ZmYwYjRkOWVjNzUzMmE0MjdhZjIiLCJpYXQiOjE3MzY3NzQzNjh9.DPhMHrxlIsHfJIZ8eRua9e-e6zptMr3D8mKv3kQ118c","user":{"fullname":{"firstname":"John","lastname":"Doe"},"\_id":"6784ff0b4d9ec7532a427af2","email":"john@example.com","password":"$2b$10$NTdiOshFF1Cdyz6Dk.UjiOdMYU3EDFmxxIJ2WaP7YqWN9gJWd5.aK","\_\_v":0}}
+json
+{
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg0ZmYwYjRkOWVjNzUzMmE0MjdhZjIiLCJpYXQiOjE3MzY3NzQzNjh9.DPhMHrxlIsHfJIZ8eRua9e-e6zptMr3D8mKv3kQ118c",
+"user": {
+"fullname": {
+"firstname": "John",
+"lastname": "Doe"
+},
+"id": "6784ff0b4d9ec7532a427af2",
+"email": "john@example.com",
+"password": "$2b$10$NTdiOshFF1Cdyz6Dk.UjiOdMYU3EDFmxxIJ2WaP7YqWN9gJWd5.aK",
+"v": 0
+}
+}
 
 #### Error Responses
 
