@@ -1,24 +1,30 @@
-# Backend API Documentation
+# User Authentication API Documentation
+
+## Overview
+
+This API provides user authentication services including registration and login functionality. It uses JWT (JSON Web Token) for authentication and implements secure password hashing.
 
 ## Base URL
 
-`/users`
+http://localhost:3000/users
 
-## Available Endpoints
+## Authentication
 
-### Register User
+Authentication is handled via JWT tokens. Include the token in the Authorization header:
 
-Register a new user in the system.
+Authorization: Bearer <token>
 
-#### Endpoint
+## Endpoints
 
-http
-POST /users/register
+### 1. Register User
 
-#### Request Body
+Create a new user account.
 
-Body
-json
+**Endpoint:** `POST /users/register`
+
+**Request Body:**
+
+json:backend/README.md
 {
 "fullname": {
 "firstname": "John",
@@ -28,88 +34,46 @@ json
 "password": "password123"
 }
 
-#### Validation Rules
+**Validation Rules:**
 
 - Email must be a valid email address
 - First name must be at least 3 characters long
 - Password must be at least 6 characters long
 
-#### Success Response
+**Success Response:**
 
-**Code**: 201 Created
+- Status Code: `201 Created`
 
-json
-{
-"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-"user": {
-"id": "65f4a3b2c7d8e9f0a1b2c3d4",
-"fullname": {
-"firstname": "John",
-"lastname": "Doe"
-},
-"email": "john.doe@example.com",
-"socketId": null
-}
-}
+**Error Responses:**
 
-#### Error Responses
+- Status Code: `400 Bad Request`
+  - Validation Errors:
+    ```json
+    {
+      "errors": [
+        {
+          "type": "field",
+          "msg": "Invalid Email",
+          "path": "email",
+          "location": "body"
+        }
+      ]
+    }
+    ```
+  - Missing Required Fields:
+    ```json
+    {
+      "error": "Email, password, and first name are required"
+    }
+    ```
 
-**Code**: 400 Bad Request
+### 2. Login User
 
-- When validation fails:
+Authenticate an existing user.
 
-json
-{
-"errors": [
-{
-"type": "field",
-"msg": "Invalid Email",
-"path": "email",
-"location": "body"
-}
-]
-}
+**Endpoint:** `POST /users/login`
 
-- When required fields are missing:
-
-json
-{
-"error": "Email, password, and first name are required"
-}
-
-## Implementation Details
-
-The user registration process includes:
-
-1. Input validation using express-validator
-2. Password hashing using bcrypt
-3. JWT token generation for authentication
-4. MongoDB document creation
-
-## Related Files
-
-- Routes: `user-route.js`
-- Controller: `user-controller.js`
-- Service: `user-service.js`
-- Model: `user-model.js`
-
-## Dependencies
-
-- express-validator: For request validation
-- bcrypt: For password hashing
-- jsonwebtoken: For JWT token generation
-- mongoose: For database operations
-
-### Login User
-
-Authenticate an existing user and receive a JWT token.
-
-#### Endpoint
-
-http
-POST /users/login
-
-#### Request Body
+**Request Body:**
 
 json
 {
@@ -117,22 +81,69 @@ json
 "password": "password123"
 }
 
-#### Validation Rules
+**Validation Rules:**
 
 - Email must be a valid email address
 - Password must be at least 6 characters long
 
-#### Success Response
+**Success Response:**
 
-**Code**: 200 OK
+- Status Code: `200 OK`
 
-#### Error Responses
+**Error Responses:**
 
-**Code**: 401 Unauthorized
+- Status Code: `401 Unauthorized`
+  ```json
+  {
+    "error": "Invalid credentials"
+  }
+  ```
+- Status Code: `400 Bad Request`
+  ```json
+  {
+    "errors": [
+      {
+        "type": "field",
+        "msg": "Invalid Email",
+        "path": "email",
+        "location": "body"
+      }
+    ]
+  }
+  ```
 
-- When credentials are invalid:
+## Technical Implementation
 
-json
-{
-"error": "Invalid credentials"
-}
+### Security Features
+
+1. Password Hashing: Implemented using bcrypt with 10 rounds of salting
+2. JWT Token Generation: Tokens are signed using a secure secret key
+3. Input Validation: Request validation using express-validator
+4. MongoDB Unique Indexes: Prevents duplicate email addresses
+
+### Dependencies
+
+- express-validator: Request validation
+- bcrypt: Password hashing
+- jsonwebtoken: JWT token generation/validation
+- mongoose: MongoDB ODM
+- express: Web framework
+- cors: Cross-Origin Resource Sharing
+
+### Environment Variables
+
+Required environment variables:
+
+- `PORT`: Server port (default: 3000)
+- `JWT_SECRET`: Secret key for JWT signing
+- `DB_CONNECT`: MongoDB connection string
+
+### Error Handling
+
+The API implements comprehensive error handling for:
+
+- Validation errors
+- Authentication failures
+- Database conflicts
+- Missing required fields
+- Server errors
