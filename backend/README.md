@@ -99,6 +99,7 @@ json
   }
   ```
 - Status Code: `400 Bad Request`
+
   ```json
   {
     "errors": [
@@ -109,6 +110,64 @@ json
         "location": "body"
       }
     ]
+  }
+  ```
+
+  ### 3. Get User Profile
+
+Retrieve the authenticated user's profile information.
+
+**Endpoint:** `GET /users/profile`
+
+**Authentication Required:** Yes (JWT token in Authorization header)
+
+**Success Response:**
+
+- Status Code: `200 OK`
+- Response Body:
+  ```json
+  {
+    "_id": "user_id",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+  }
+  ```
+
+**Error Responses:**
+
+- Status Code: `401 Unauthorized`
+  ```json
+  {
+    "error": "You are not logged in"
+  }
+  ```
+
+### 4. Logout User
+
+Logout the currently authenticated user and invalidate their token.
+
+**Endpoint:** `GET /users/logout`
+
+**Authentication Required:** Yes (JWT token in Authorization header)
+
+**Success Response:**
+
+- Status Code: `200 OK`
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+**Error Responses:**
+
+- Status Code: `401 Unauthorized`
+  ```json
+  {
+    "error": "You are not logged in"
   }
   ```
 
