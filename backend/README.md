@@ -1,4 +1,4 @@
-# User Routes Documentation
+# Backend API Documentation
 
 ## Base URL
 
@@ -99,3 +99,42 @@ The user registration process includes:
 - bcrypt: For password hashing
 - jsonwebtoken: For JWT token generation
 - mongoose: For database operations
+
+### Login User
+
+Authenticate an existing user and receive a JWT token.
+
+#### Endpoint
+
+http
+POST /users/login
+
+#### Request Body
+
+json
+{
+"email": "john.doe@example.com",
+"password": "password123"
+}
+
+#### Validation Rules
+
+- Email must be a valid email address
+- Password must be at least 6 characters long
+
+#### Success Response
+
+**Code**: 200 OK
+
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Nzg0ZmYwYjRkOWVjNzUzMmE0MjdhZjIiLCJpYXQiOjE3MzY3NzQzNjh9.DPhMHrxlIsHfJIZ8eRua9e-e6zptMr3D8mKv3kQ118c","user":{"fullname":{"firstname":"John","lastname":"Doe"},"\_id":"6784ff0b4d9ec7532a427af2","email":"john@example.com","password":"$2b$10$NTdiOshFF1Cdyz6Dk.UjiOdMYU3EDFmxxIJ2WaP7YqWN9gJWd5.aK","\_\_v":0}}
+
+#### Error Responses
+
+**Code**: 401 Unauthorized
+
+- When credentials are invalid:
+
+json
+{
+"error": "Invalid credentials"
+}
