@@ -1,4 +1,4 @@
-# User Authentication API Documentation
+# Backend API Documentation
 
 ## Overview
 
