@@ -165,11 +165,101 @@ Logout the currently authenticated user and invalidate their token.
 **Error Responses:**
 
 - Status Code: `401 Unauthorized`
+
   ```json
   {
     "error": "You are not logged in"
   }
   ```
+
+  ### 5. Register Captain
+
+Create a new captain account with vehicle details.
+
+**Endpoint:** `POST /captains/register`
+
+**Request Body:**
+
+```json
+{
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.captain@example.com",
+  "password": "password123",
+  "vehicle": {
+    "color": "Black",
+    "plate": "ABC1234",
+    "capacity": 4,
+    "vehicleType": "Car"
+  }
+}
+```
+
+**Validation Rules:**
+
+- Email must be a valid email address
+- First name must be at least 3 characters long
+- Password must be at least 6 characters long
+- Vehicle color must be at least 3 characters long
+- Vehicle plate must be at least 7 characters long
+- Vehicle capacity must be at least 1
+- Vehicle type must be one of: "Car", "Motorbike", "Auto"
+
+**Success Response:**
+
+- Status Code: `201 Created`
+- Response Body:
+
+```json
+{
+  "captain": {
+    "_id": "captain_id",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.captain@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plate": "ABC1234",
+      "capacity": 4,
+      "vehicleType": "Car"
+    }
+  },
+  "token": "jwt_token"
+}
+```
+
+**Error Responses:**
+
+- Status Code: `400 Bad Request`
+  - Validation Errors:
+    ```json
+    {
+      "errors": [
+        {
+          "type": "field",
+          "msg": "Invalid Email",
+          "path": "email",
+          "location": "body"
+        }
+      ]
+    }
+    ```
+  - Duplicate Email:
+    ```json
+    {
+      "error": "Captain already exists"
+    }
+    ```
+  - Missing Required Fields:
+    ```json
+    {
+      "error": "All fields are required"
+    }
+    ```
 
 ## Technical Implementation
 
