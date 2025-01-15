@@ -113,7 +113,7 @@ json
   }
   ```
 
-  ### 3. Get User Profile
+### 3. Get User Profile
 
 Retrieve the authenticated user's profile information.
 
@@ -172,7 +172,7 @@ Logout the currently authenticated user and invalidate their token.
   }
   ```
 
-  ### 5. Register Captain
+### 5. Register Captain
 
 Create a new captain account with vehicle details.
 
@@ -260,6 +260,70 @@ Create a new captain account with vehicle details.
       "error": "All fields are required"
     }
     ```
+
+### 3. Get Captain Profile
+
+Retrieve the authenticated captain's profile information.
+
+**Endpoint:** `GET /captains/profile`
+
+**Authentication Required:** Yes (JWT token in Authorization header)
+
+**Success Response:**
+
+- Status Code: `200 OK`
+- Response Body:
+  ```json
+  {
+    "_id": "captain_id",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.captain@example.com",
+    "vehicle": {
+      "color": "Black",
+      "plate": "ABC1234",
+      "capacity": 4,
+      "vehicleType": "Car"
+    }
+  }
+  ```
+
+**Error Responses:**
+
+- Status Code: `401 Unauthorized`
+  ```json
+  {
+    "error": "You are not logged in"
+  }
+  ```
+
+### 4. Logout Captain
+
+Logout the currently authenticated captain and invalidate their token.
+
+**Endpoint:** `GET /captains/logout`
+
+**Authentication Required:** Yes (JWT token in Authorization header)
+
+**Success Response:**
+
+- Status Code: `200 OK`
+  ```json
+  {
+    "message": "Logged out successfully"
+  }
+  ```
+
+**Error Responses:**
+
+- Status Code: `401 Unauthorized`
+  ```json
+  {
+    "error": "You are not logged in"
+  }
+  ```
 
 ## Technical Implementation
 

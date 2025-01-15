@@ -24,6 +24,7 @@ const captainSchema = mongoose.Schema({
     type: String,
     required: true,
     select: false,
+    minLength: [6, "Email must be atleast 5 charaters long"]
   },
   socketId: {
     type: String,
