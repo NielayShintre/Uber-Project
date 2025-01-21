@@ -25,7 +25,7 @@ router.post(
       .withMessage("Vehicle capacity must be atleast 1"),
     body("vehicle.vehicleType")
       .isIn(["Car", "Motorbike", "Auto"])
-      .withMessage("Vehicle type must be in Car, Motorbike, Bicycle"),
+      .withMessage("Vehicle type must be in Car, Motorbike, Auto"),
   ],
   captainController.registerCaptain
 );
