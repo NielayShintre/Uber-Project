@@ -23,7 +23,9 @@ const Home = () => {
   const [vehicleFound, setVehicleFound] = useState(false);
   const [waitingForDriver, setWaitingForDriver] = useState(false);
   const VehicleFoundRef = useRef(null);
-  const WaitingForDriverRef = useRef(null);
+  const waitingForDriverRef = useRef(null);
+  const [ride, setRide] = useState(null);
+  const [fare, setFare] = useState({});
   const submitHandler = (e) => {
     e.preventDefault();
   };
@@ -80,11 +82,11 @@ const Home = () => {
 
   useGSAP(() => {
     if (waitingForDriver) {
-      gsap.to(WaitingForDriverRef.current, {
+      gsap.to(waitingForDriverRef.current, {
         transform: "translateY(0)",
       });
     } else {
-      gsap.to(WaitingForDriverRef.current, {
+      gsap.to(waitingForDriverRef.current, {
         transform: "translateY(100%)",
       });
     }
@@ -145,7 +147,7 @@ const Home = () => {
       </div>
       <div
         ref={vehiclePanelRef}
-        className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-14 w-full"
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
       >
         <VehiclePanel
           setConfirmRidePanel={setConfirmRidePanel}
@@ -156,7 +158,7 @@ const Home = () => {
       </div>
       <div
         ref={confirmRidePanelRef}
-        className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-14 w-full"
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
       >
         <ConfirmedRide
           setVehicleFound={setVehicleFound}
@@ -166,15 +168,20 @@ const Home = () => {
       </div>
       <div
         ref={VehicleFoundRef}
-        className="fixed z-10 bottom-0 translate-y-full bg-white px-3 py-14 w-full"
+        className="fixed w-full z-10 bottom-0 translate-y-full bg-white px-3 py-6 pt-12"
       >
         <LookingForDriver />
       </div>
       <div
-        ref={WaitingForDriverRef}
-        className="fixed z-10 bottom-0 bg-white px-3 py-14 w-full"
+        ref={waitingForDriverRef}
+        className="fixed w-full  z-10 bottom-0  bg-white px-3 py-6 pt-12"
       >
-        <WaitingForDriver waitingForDriver={waitingForDriver} />
+        <WaitingForDriver
+          ride={ride}
+          setVehicleFound={setVehicleFound}
+          setWaitingForDriver={setWaitingForDriver}
+          waitingForDriver={waitingForDriver}
+        />
       </div>
     </div>
   );
