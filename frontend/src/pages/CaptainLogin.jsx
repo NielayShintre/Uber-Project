@@ -3,12 +3,12 @@ import DriverIcon from "../assets/DriverIcon.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { captainDataContext } from "../context/CaptainContext";
+import { CaptainDataContext } from "../context/CaptainContext";
 const CaptainLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { captain, setCaptain } = useContext(captainDataContext);
+  const { captain, setCaptain } = useContext(CaptainDataContext);
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {

@@ -1,30 +1,43 @@
 import React from "react";
 import mapIcon from "../assets/mapIcon.svg";
-const LocationSearchPanel = (props) => {
-  const locations = [
-    " 24B, Near Kapoor's Cafe, Coding School, Bhopal",
-    " 24B, Near Kapoor's Cafe, Coding School, Bhopal",
-    " 24B, Near Kapoor's Cafe, Coding School, Bhopal",
-    " 24B, Near Kapoor's Cafe, Coding School, Bhopal",
-  ];
-  return locations.map((ele, i) => {
-    return (
-      <div
-        key={i}
-        onClick={() => {
-          props.setVehiclePanel(true);
-          props.setPanel(false);
-        }}
-        className="flex border-2 p-3 border-gray-100 active:border-black rounded-xl justify-start my-2 items-center gap-2"
-      >
-        <span className="bg-[#eee] p-2 rounded-full w-10">
-          <img src={mapIcon} className="w-full" />
-        </span>
 
-        <h4 className="font-medium">{ele}</h4>
-      </div>
-    );
-  });
+const LocationSearchPanel = ({
+  suggestions,
+  setVehiclePanel,
+  setPanelOpen,
+  setPickup,
+  setDestination,
+  activeField,
+}) => {
+  const handleSuggestionClick = (suggestion) => {
+    if (activeField === "pickup") {
+      setPickup(suggestion);
+    } else if (activeField === "destination") {
+      setDestination(suggestion);
+    }
+    // Uncomment these lines if you want to open the vehicle panel and close the search panel
+    // setVehiclePanel(true);
+    // setPanelOpen(false);
+  };
+
+  return (
+    <div>
+      {/* Display fetched suggestions */}
+      {suggestions.map((elem, idx) => (
+        <div
+          key={idx}
+          onClick={() => handleSuggestionClick(elem)}
+          className="flex gap-4 border-2 p-2 border-gray-50 active:border-black rounded-xl items-center my-2 justify-start"
+        >
+          <h2 className="h-8 flex items-center justify-center w-12 rounded-full">
+            <i className="ri-map-pin-fill text-lg"></i>
+          </h2>
+
+          <h4 className="font-medium w-full truncate">{elem}</h4>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default LocationSearchPanel;

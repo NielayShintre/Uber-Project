@@ -1,6 +1,11 @@
-import React from "react";
-
+import React, { useContext } from "react";
+import { CaptainDataContext } from "../context/CaptainContext";
 const CaptainDetails = () => {
+  const { captain } = useContext(CaptainDataContext);
+  // Check if captain is defined
+  // if (!captain) {
+  //   return <div>Loading...</div>; // or any fallback UI
+  // }
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -9,7 +14,9 @@ const CaptainDetails = () => {
             className="h-10 w-10 rounded-full object-cover"
             src="https://imgs.search.brave.com/YJ2I_2YGbGB3f6x_YYY7V0ARK-5p_wAYdGJ3NgD1IME/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTIx/NjU5NjkzNy9waG90/by9wb3J0cmFpdC1v/Zi1kcml2ZXItc21p/bGluZy5qcGc_Yj0x/JnM9MTcwNjY3YSZ3/PTAmaz0yMCZjPXZX/WEpoNHZXWnB6dlR6/cGVIMjFqbk52OWtN/X3Jrcjc3eTBpTnBY/aXNSa1k9"
           />
-          <h4 className="text-lg font-medium">Harsh Patel</h4>
+          <h4 className="text-lg font-medium">
+            {captain?.fullname?.firstname + " " + captain?.fullname?.lastname}
+          </h4>
         </div>
         <div>
           <h4 className="text-xl font-semibold">₹234</h4>

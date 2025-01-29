@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import DriverIcon from "../assets/DriverIcon.png";
 import { Link } from "react-router-dom";
-import { captainDataContext } from "../context/CaptainContext";
+import { CaptainDataContext } from "../context/CaptainContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const CaptainSignup = () => {
@@ -15,7 +15,7 @@ const CaptainSignup = () => {
   const [vehicleCapacity, setVehicleCapacity] = useState("");
   const [vehicleType, setVehicleType] = useState("");
 
-  const { captain, setCaptain } = useContext(captainDataContext);
+  const { captain, setCaptain } = useContext(CaptainDataContext);
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
